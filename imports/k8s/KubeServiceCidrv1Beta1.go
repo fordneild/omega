@@ -1,14 +1,12 @@
 package k8s
 
 import (
-	_init_ "omega/imports/k8s/jsii"
-
-	"omega/imports/k8s/internal"
-
 	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/fordneild/omega/imports/k8s/jsii"
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/cdk8s-team/cdk8s-core-go/cdk8s/v2"
+	"github.com/fordneild/omega/imports/k8s/internal"
 )
 
 // ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.

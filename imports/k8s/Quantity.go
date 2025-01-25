@@ -1,9 +1,8 @@
 package k8s
 
 import (
-	_init_ "omega/imports/k8s/jsii"
-
 	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/fordneild/omega/imports/k8s/jsii"
 )
 
 type Quantity interface {

@@ -1,14 +1,12 @@
 package k8s
 
 import (
-	_init_ "omega/imports/k8s/jsii"
-
-	"omega/imports/k8s/internal"
-
 	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/fordneild/omega/imports/k8s/jsii"
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/cdk8s-team/cdk8s-core-go/cdk8s/v2"
+	"github.com/fordneild/omega/imports/k8s/internal"
 )
 
 // CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
