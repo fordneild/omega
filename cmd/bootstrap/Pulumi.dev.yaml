@@ -1,0 +1,7 @@
+config:
+  aws:region: us-east-1
+  omega:desiredClusterSize: "1"
+  omega:eksNodeInstanceType: t3.medium
+  omega:maxClusterSize: "2"
+  omega:minClusterSize: "1"
+  omega:vpcNetworkCidr: 10.0.0.0/16

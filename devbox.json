@@ -1,0 +1,27 @@
+{
+    "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.7/.schema/devbox.schema.json",
+    "packages": [],
+    "env_from": ".env",
+    "env": {
+      "KUBECONFIG": "kubeconfig.json",
+      "JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION": "1"
+    },
+    "shell": {
+      "init_hook": [
+        // Remove Go environment variables that might've been inherited from the
+        // user's environment and could affect the build.
+        "test -z $FISH_VERSION && \\",
+        "unset       CGO_ENABLED GO111MODULE GOARCH GOFLAGS GOMOD GOOS GOROOT GOTOOLCHAIN GOWORK || \\",
+        "set --erase CGO_ENABLED GO111MODULE GOARCH GOFLAGS GOMOD GOOS GOROOT GOTOOLCHAIN GOWORK",
+      ],
+      "scripts": {
+        "test": [
+          "echo \"Error: no test specified\" && exit 1"
+        ],
+        "install": [
+          "go install ./cmd/omega",
+        ],
+      }
+    }
+  }
+  

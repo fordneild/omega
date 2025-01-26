@@ -1,0 +1,5 @@
+language: go
+app: omega synth
+imports:
+  - k8s@1.31.0
+  - /dev/stdin
