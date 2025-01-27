@@ -1,6 +1,9 @@
 package infra
 
 import (
+	"fmt"
+
+	"github.com/fordneild/omega/internal/project"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apiextensions"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
@@ -28,7 +31,7 @@ func NewRootApp(ctx *pulumi.Context, args RootAppArgs) (*apiextensions.CustomRes
 				"source": kubernetes.UntypedArgs{
 					"repoURL":        "https://github.com/fordneild/omega.git",
 					"targetRevision": "HEAD",
-					"path":           "projects",
+					"path":           fmt.Sprintf("%s/root", project.OmegaProjectBasePath),
 				},
 				"destination": kubernetes.UntypedArgs{
 					"server":    "https://kubernetes.default.svc",

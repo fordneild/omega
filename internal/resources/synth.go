@@ -1,16 +1,22 @@
 package resources
 
 import (
-	"github.com/cdk8s-team/cdk8s-core-go/cdk8s/v2"
+	"github.com/charmbracelet/log"
 	"github.com/fordneild/omega/internal/globals"
 )
 
 type SynthCmd struct {
+	ProjectId string `arg:""`
 }
 
 func (cmd *SynthCmd) Run(globals *globals.Globals) error {
-	app := cdk8s.NewApp(nil)
-	NewChart(app, "getting-started", "default", "my-app")
-	app.Synth()
+	project, err := globals.ProjectService.GetProjectById(cmd.ProjectId)
+	if err != nil {
+		return err
+	}
+	proj := *project
+	log.Infof("Synthing project %s", proj.GetId())
+	log.Infof("Project %s has %d apps", proj.GetId(), len(proj.GetApps()))
+	proj.Synth()
 	return nil
 }

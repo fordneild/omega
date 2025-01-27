@@ -1,5 +1,8 @@
 package globals
 
+import "github.com/fordneild/omega/internal/project"
+
 type Globals struct {
-	Debug bool
+	Debug          bool
+	ProjectService *project.ProjectService
 }

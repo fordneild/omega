@@ -6,6 +6,7 @@ import (
 	"github.com/fordneild/omega/internal/infra"
 	"github.com/fordneild/omega/internal/install"
 	"github.com/fordneild/omega/internal/resources"
+	"github.com/fordneild/omega/projects"
 )
 
 var cli struct {
@@ -18,6 +19,6 @@ var cli struct {
 func main() {
 	ctx := kong.Parse(&cli)
 	// Call the Run() method of the selected parsed command.
-	err := ctx.Run(&globals.Globals{Debug: cli.Debug})
+	err := ctx.Run(&globals.Globals{Debug: cli.Debug, ProjectService: projects.ProjectService})
 	ctx.FatalIfErrorf(err)
 }

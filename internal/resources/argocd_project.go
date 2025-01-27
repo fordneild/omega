@@ -25,7 +25,7 @@ type ChildAppConfig struct {
 	Path string
 }
 
-func NewProject(scope constructs.Construct, id string, props ProjectProps) constructs.Construct {
+func NewProjectArgocdResources(scope constructs.Construct, id string, props ProjectProps) constructs.Construct {
 	project := constructs.NewConstruct(scope, &id)
 
 	// 1. Create the ArgoCD Project CRD
@@ -35,6 +35,21 @@ func NewProject(scope constructs.Construct, id string, props ProjectProps) const
 			Namespace: jsii.String("argocd"),
 		},
 		// Add any project-specific settings here
+		Spec: &argoprojio.AppProjectSpec{
+			ClusterResourceWhitelist: &[]*argoprojio.AppProjectSpecClusterResourceWhitelist{
+				{
+					Group: jsii.String("*"),
+					Kind:  jsii.String("*"),
+				},
+			},
+			Destinations: &[]*argoprojio.AppProjectSpecDestinations{
+				{
+					Namespace: jsii.String("*"),
+					Server:    jsii.String("*"),
+				},
+			},
+			SourceRepos: jsii.Strings("*"),
+		},
 	})
 
 	// 2. Create the Project Root Application
@@ -49,25 +64,29 @@ func NewProject(scope constructs.Construct, id string, props ProjectProps) const
 				RepoUrl: jsii.String(props.RepoUrl),
 				Path:    jsii.String(props.Path),
 			},
+			Destination: &argoprojio.ApplicationSpecDestination{
+				Server: jsii.String("https://kubernetes.default.svc"),
+				// Namespace: jsii.String("*"),
+			},
 		},
 	})
 
 	// 3. Create Child Applications
-	for _, childApp := range props.ChildApps {
-		argoprojio.NewApplication(project, jsii.String(id+"-"+childApp.Name), &argoprojio.ApplicationProps{
-			Metadata: &cdk8s.ApiObjectMetadata{
-				Namespace: jsii.String("argocd"),
-				Name:      jsii.String(props.ProjectName + "-" + childApp.Name),
-			},
-			Spec: &argoprojio.ApplicationSpec{
-				Project: jsii.String(props.ProjectName),
-				Source: &argoprojio.ApplicationSpecSource{
-					RepoUrl: jsii.String(props.RepoUrl),
-					Path:    jsii.String(childApp.Path),
-				},
-			},
-		})
-	}
+	// for _, childApp := range props.ChildApps {
+	// 	argoprojio.NewApplication(project, jsii.String(id+"-"+childApp.Name), &argoprojio.ApplicationProps{
+	// 		Metadata: &cdk8s.ApiObjectMetadata{
+	// 			Namespace: jsii.String("argocd"),
+	// 			Name:      jsii.String(props.ProjectName + "-" + childApp.Name),
+	// 		},
+	// 		Spec: &argoprojio.ApplicationSpec{
+	// 			Project: jsii.String(props.ProjectName),
+	// 			Source: &argoprojio.ApplicationSpecSource{
+	// 				RepoUrl: jsii.String(props.RepoUrl),
+	// 				Path:    jsii.String(childApp.Path),
+	// 			},
+	// 		},
+	// 	})
+	// }
 
 	return project
 }
