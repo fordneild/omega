@@ -9,20 +9,36 @@ import (
 )
 
 type ArgocdHelmChartProps struct {
-	Name                *string
-	ArgocdNamespace     *string
-	ReleaseNamespace    *string
-	ProjectName         *string
-	ChartName           *string
-	ChartRepoUrl        *string
-	ChartTargetRevision *string
-	ReleaseName         *string
+	Name                   *string
+	ArgocdNamespace        *string
+	ReleaseNamespace       *string
+	ProjectName            *string
+	ChartName              *string
+	ChartRepoUrl           *string
+	ChartTargetRevision    *string
+	ReleaseName            *string
+	PruneOnAutomatedSync   *bool
+	DisableAutomatedSync   *bool
+	DisableCreateNamespace *bool
 }
 
 func NewArgocdHelmChart(scope constructs.Construct, id string, props ArgocdHelmChartProps) constructs.Construct {
 	project := constructs.NewConstruct(scope, &id)
 	// 2. Create the Project Root Application
 	argocdNamespace, _ := lo.Coalesce(props.ArgocdNamespace, jsii.String("argocd"))
+	var automatedSyncPolicy *argoprojio.ApplicationSpecSyncPolicyAutomated
+	if lo.FromPtr(props.DisableAutomatedSync) {
+		automatedSyncPolicy = nil
+	} else {
+		automatedSyncPolicy = &argoprojio.ApplicationSpecSyncPolicyAutomated{
+			Prune: props.PruneOnAutomatedSync,
+		}
+	}
+	syncOptions := jsii.Strings("CreateNamespace=true")
+	if lo.FromPtr(props.DisableCreateNamespace) {
+		syncOptions = &[]*string{}
+	}
+
 	argoprojio.NewApplication(project, jsii.String(id), &argoprojio.ApplicationProps{
 		Metadata: &cdk8s.ApiObjectMetadata{
 			Name:      props.Name,
@@ -42,6 +58,10 @@ func NewArgocdHelmChart(scope constructs.Construct, id string, props ArgocdHelmC
 			Destination: &argoprojio.ApplicationSpecDestination{
 				Server:    jsii.String("https://kubernetes.default.svc"),
 				Namespace: props.ReleaseNamespace,
+			},
+			SyncPolicy: &argoprojio.ApplicationSpecSyncPolicy{
+				Automated:   automatedSyncPolicy,
+				SyncOptions: syncOptions,
 			},
 		},
 	})

@@ -3,6 +3,7 @@ package resources
 import (
 	"fmt"
 	"slices"
+	"strings"
 
 	"github.com/charmbracelet/log"
 	"github.com/fordneild/omega/internal/globals"
@@ -14,11 +15,15 @@ type SyncCmd struct {
 	ProjectsIds *[]string `name:"project-ids" help:"Projects to sync"`
 }
 
-func SyncProject(project project.Project) error {
-	omegaSyncCommand := fmt.Sprintf("omega synth %s", project.GetId())
+func SyncProject(globals *globals.Globals, project project.Project) error {
+	flags := []string{}
+	if globals.Debug {
+		flags = append(flags, "-d")
+	}
+	omegaSyncCommand := fmt.Sprintf("omega synth %s %s", project.GetId(), strings.Join(flags, " "))
 	log.Infof("Syncing project %s", project.GetId())
 	cmd := fmt.Sprintf("cdk8s synth --output=\"%s\" --app=\"%s\"", project.GetPath(), omegaSyncCommand)
-	log.Infof("Running command: %s", cmd)
+	log.Debugf("Running command: %s", cmd)
 	stdout, stderr, err := shell.Exec(cmd)
 	if stdout != "" {
 		log.Print(stdout)
@@ -39,7 +44,7 @@ func (cmd *SyncCmd) Run(globals *globals.Globals) error {
 		if projectIds != nil && !slices.Contains(*projectIds, project.GetId()) {
 			continue
 		}
-		err := SyncProject(project)
+		err := SyncProject(globals, project)
 		if err != nil {
 			return err
 		}
