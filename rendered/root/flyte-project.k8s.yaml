@@ -25,3 +25,9 @@ spec:
   source:
     path: rendered/flyte
     repoURL: https://github.com/fordneild/omega.git
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true

@@ -68,6 +68,13 @@ func NewProjectArgocdResources(scope constructs.Construct, id string, props Proj
 				Server: jsii.String("https://kubernetes.default.svc"),
 				// Namespace: jsii.String("*"),
 			},
+			SyncPolicy: &argoprojio.ApplicationSpecSyncPolicy{
+				Automated: &argoprojio.ApplicationSpecSyncPolicyAutomated{
+					Prune:    jsii.Bool(false),
+					SelfHeal: jsii.Bool(false),
+				},
+				SyncOptions: jsii.Strings("CreateNamespace=true"),
+			},
 		},
 	})
 
