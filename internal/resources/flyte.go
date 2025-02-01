@@ -18,7 +18,7 @@ func NewFlyteHelmChart(project project.Project) cdk8s.App {
 		ProjectName:            jsii.String(project.GetId()),
 		ChartName:              jsii.String("flyte"),
 		ChartRepoUrl:           jsii.String("https://flyteorg.github.io/flyte"),
-		ChartTargetRevision:    jsii.String("v0.1.10"),
+		ChartTargetRevision:    jsii.String("0.1.10"),
 		ReleaseName:            jsii.String("flyte"),
 		DisableAutomatedSync:   jsii.Bool(false),
 		DisableCreateNamespace: jsii.Bool(false),

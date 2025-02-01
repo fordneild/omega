@@ -13,7 +13,7 @@ spec:
     helm:
       releaseName: flyte
     repoURL: https://flyteorg.github.io/flyte
-    targetRevision: v0.1.10
+    targetRevision: 0.1.10
   syncPolicy:
     automated:
       prune: true
