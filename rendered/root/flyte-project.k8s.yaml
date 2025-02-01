@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: flyte
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  destinations:
+    - namespace: "*"
+      server: "*"
+  sourceRepos:
+    - "*"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flyte-root
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  project: flyte
+  source:
+    path: rendered/flyte
+    repoURL: https://github.com/fordneild/omega.git

@@ -16,8 +16,10 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pulumi/pulumi-awsx/sdk/v2 v2.1.1
 	github.com/pulumi/pulumi-eks/sdk/v3 v3.0.0
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.9.1
 	github.com/pulumi/pulumi/pkg/v3 v3.147.0
 	github.com/pulumi/pulumi/sdk/v3 v3.147.0
+	github.com/samber/lo v1.49.0
 	github.com/spf13/cobra v1.8.0
 )
 
@@ -183,13 +185,11 @@ require (
 	github.com/pulumi/inflector v0.1.1 // indirect
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.29.0 // indirect
 	github.com/pulumi/pulumi-docker/sdk/v4 v4.4.3 // indirect
-	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.9.1 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect
-	github.com/samber/lo v1.49.0 // indirect
 	github.com/santhosh-tekuri/jsonschema/v5 v5.3.1 // indirect
 	github.com/segmentio/asm v1.1.3 // indirect
 	github.com/segmentio/encoding v0.3.5 // indirect

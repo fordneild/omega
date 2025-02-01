@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flyte-helm-chart
+  namespace: argocd
+spec:
+  destination:
+    namespace: flyte
+    server: https://kubernetes.default.svc
+  project: flyte
+  source:
+    chart: flyte
+    helm:
+      releaseName: flyte
+    repoURL: https://flyteorg.github.io/flyte
+    targetRevision: v0.1.10
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
