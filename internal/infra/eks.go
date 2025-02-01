@@ -56,7 +56,8 @@ func (h *EKSCluster) Run(ctx *pulumi.Context) (*eks.Cluster, error) {
 		// Public subnets will be used for load balancers
 		PublicSubnetIds: eksVpc.PublicSubnetIds,
 		// Private subnets will be used for cluster nodes
-		PrivateSubnetIds: eksVpc.PrivateSubnetIds,
+		PrivateSubnetIds:   eksVpc.PrivateSubnetIds,
+		CreateOidcProvider: pulumi.Bool(true),
 		// Change configuration values above to change any of the following settings
 		InstanceType:    pulumi.String(eksNodeInstanceType),
 		DesiredCapacity: pulumi.Int(desiredClusterSize),
