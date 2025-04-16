@@ -8,10 +8,11 @@ import (
 	"github.com/fordneild/omega/internal/project"
 )
 
-func NewCrossplaneHelmChart(project project.Project) cdk8s.App {
+func NewAWSCrossplane(project project.Project) cdk8s.App {
 	app := cdk8s.NewApp(nil)
 	chart := cdk8s.NewChart(app, jsii.String(fmt.Sprintf("%s-crossplane-system-helm-chart", project.GetId())), nil)
-	NewArgocdHelmChart(chart, project.GetId(), ArgocdHelmChartProps{
+	// crossplane helm chart
+	NewHelmChartAsArgocdApp(chart, project.GetId(), ArgocdHelmChartProps{
 		Name:                   jsii.String("crossplane-system-helm-chart"),
 		ArgocdNamespace:        jsii.String("argocd"),
 		ReleaseNamespace:       jsii.String("crossplane-system"),
@@ -24,6 +25,6 @@ func NewCrossplaneHelmChart(project project.Project) cdk8s.App {
 		DisableCreateNamespace: jsii.Bool(false),
 		PruneOnAutomatedSync:   jsii.Bool(true),
 	})
+	// TODO set up AWS provider
 	return app
-
 }

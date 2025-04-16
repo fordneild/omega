@@ -9,7 +9,7 @@ const CrossplaneId = "crossplane"
 
 func crossplane() project.Project {
 	project := project.OmegaProject(CrossplaneId, "crossplane")
-	project.WithApp(resources.NewCrossplaneHelmChart(project))
+	project.WithApp(resources.NewAWSCrossplane(project))
 	return project
 }
 

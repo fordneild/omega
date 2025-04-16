@@ -11,7 +11,7 @@ import (
 func NewFlyteHelmChart(project project.Project) cdk8s.App {
 	app := cdk8s.NewApp(nil)
 	chart := cdk8s.NewChart(app, jsii.String(fmt.Sprintf("%s-flyte-helm-chart", project.GetId())), nil)
-	NewArgocdHelmChart(chart, project.GetId(), ArgocdHelmChartProps{
+	NewHelmChartAsArgocdApp(chart, project.GetId(), ArgocdHelmChartProps{
 		Name:                   jsii.String("flyte-helm-chart"),
 		ArgocdNamespace:        jsii.String("argocd"),
 		ReleaseNamespace:       jsii.String("flyte"),

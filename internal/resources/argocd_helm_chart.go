@@ -22,9 +22,9 @@ type ArgocdHelmChartProps struct {
 	DisableCreateNamespace *bool
 }
 
-func NewArgocdHelmChart(scope constructs.Construct, id string, props ArgocdHelmChartProps) constructs.Construct {
+// a helm chart, installed as a argocd app. Has the advantage of params being modifyable via the argocd UI
+func NewHelmChartAsArgocdApp(scope constructs.Construct, id string, props ArgocdHelmChartProps) constructs.Construct {
 	project := constructs.NewConstruct(scope, &id)
-	// 2. Create the Project Root Application
 	argocdNamespace, _ := lo.Coalesce(props.ArgocdNamespace, jsii.String("argocd"))
 	var automatedSyncPolicy *argoprojio.ApplicationSpecSyncPolicyAutomated
 	if lo.FromPtr(props.DisableAutomatedSync) {
