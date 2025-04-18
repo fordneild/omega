@@ -24,10 +24,10 @@ devbox run argocd-forward
 devbox run argocd-password
 ```
 
-## Adding new cdk8s code (manifests, helm charts, projects, ect)
-Sync the rendered directory. Make sure you rebuild the binary
+## Adding new cdk8s code, which should change rendered output (manifests, helm charts, projects, ect)
+render the rendered directory. Make sure you rebuild the binary
 ```sh
-omega sync -d
+omega render -d
 ```
 
 
