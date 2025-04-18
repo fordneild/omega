@@ -1,19 +1,16 @@
-package pkgcrossplaneio
+package awsupboundio
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-	_init_ "github.com/fordneild/omega/imports/pkgcrossplaneio/jsii"
+	_init_ "github.com/fordneild/omega/imports/awsupboundio/jsii"
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/cdk8s-team/cdk8s-core-go/cdk8s/v2"
-	"github.com/fordneild/omega/imports/pkgcrossplaneio/internal"
+	"github.com/fordneild/omega/imports/awsupboundio/internal"
 )
 
-// A Provider installs an OCI compatible Crossplane package, extending Crossplane with support for new kinds of managed resources.
-//
-// Read the Crossplane documentation for
-// [more information about Providers](https://docs.crossplane.io/latest/concepts/providers).
-type Provider interface {
+// A ProviderConfig configures the AWS provider.
+type ProviderConfig interface {
 	cdk8s.ApiObject
 	// The group portion of the API version (e.g. `authorization.k8s.io`).
 	ApiGroup() *string
@@ -50,12 +47,12 @@ type Provider interface {
 	ToString() *string
 }
 
-// The jsii proxy struct for Provider
-type jsiiProxy_Provider struct {
+// The jsii proxy struct for ProviderConfig
+type jsiiProxy_ProviderConfig struct {
 	internal.Type__cdk8sApiObject
 }
 
-func (j *jsiiProxy_Provider) ApiGroup() *string {
+func (j *jsiiProxy_ProviderConfig) ApiGroup() *string {
 	var returns *string
 	_jsii_.Get(
 		j,
@@ -65,7 +62,7 @@ func (j *jsiiProxy_Provider) ApiGroup() *string {
 	return returns
 }
 
-func (j *jsiiProxy_Provider) ApiVersion() *string {
+func (j *jsiiProxy_ProviderConfig) ApiVersion() *string {
 	var returns *string
 	_jsii_.Get(
 		j,
@@ -75,7 +72,7 @@ func (j *jsiiProxy_Provider) ApiVersion() *string {
 	return returns
 }
 
-func (j *jsiiProxy_Provider) Chart() cdk8s.Chart {
+func (j *jsiiProxy_ProviderConfig) Chart() cdk8s.Chart {
 	var returns cdk8s.Chart
 	_jsii_.Get(
 		j,
@@ -85,7 +82,7 @@ func (j *jsiiProxy_Provider) Chart() cdk8s.Chart {
 	return returns
 }
 
-func (j *jsiiProxy_Provider) Kind() *string {
+func (j *jsiiProxy_ProviderConfig) Kind() *string {
 	var returns *string
 	_jsii_.Get(
 		j,
@@ -95,7 +92,7 @@ func (j *jsiiProxy_Provider) Kind() *string {
 	return returns
 }
 
-func (j *jsiiProxy_Provider) Metadata() cdk8s.ApiObjectMetadataDefinition {
+func (j *jsiiProxy_ProviderConfig) Metadata() cdk8s.ApiObjectMetadataDefinition {
 	var returns cdk8s.ApiObjectMetadataDefinition
 	_jsii_.Get(
 		j,
@@ -105,7 +102,7 @@ func (j *jsiiProxy_Provider) Metadata() cdk8s.ApiObjectMetadataDefinition {
 	return returns
 }
 
-func (j *jsiiProxy_Provider) Name() *string {
+func (j *jsiiProxy_ProviderConfig) Name() *string {
 	var returns *string
 	_jsii_.Get(
 		j,
@@ -115,7 +112,7 @@ func (j *jsiiProxy_Provider) Name() *string {
 	return returns
 }
 
-func (j *jsiiProxy_Provider) Node() constructs.Node {
+func (j *jsiiProxy_ProviderConfig) Node() constructs.Node {
 	var returns constructs.Node
 	_jsii_.Get(
 		j,
@@ -126,17 +123,17 @@ func (j *jsiiProxy_Provider) Node() constructs.Node {
 }
 
 
-// Defines a "Provider" API object.
-func NewProvider(scope constructs.Construct, id *string, props *ProviderProps) Provider {
+// Defines a "ProviderConfig" API object.
+func NewProviderConfig(scope constructs.Construct, id *string, props *ProviderConfigProps) ProviderConfig {
 	_init_.Initialize()
 
-	if err := validateNewProviderParameters(scope, id, props); err != nil {
+	if err := validateNewProviderConfigParameters(scope, id, props); err != nil {
 		panic(err)
 	}
-	j := jsiiProxy_Provider{}
+	j := jsiiProxy_ProviderConfig{}
 
 	_jsii_.Create(
-		"pkgcrossplaneio.Provider",
+		"awsupboundio.ProviderConfig",
 		[]interface{}{scope, id, props},
 		&j,
 	)
@@ -144,12 +141,12 @@ func NewProvider(scope constructs.Construct, id *string, props *ProviderProps) P
 	return &j
 }
 
-// Defines a "Provider" API object.
-func NewProvider_Override(p Provider, scope constructs.Construct, id *string, props *ProviderProps) {
+// Defines a "ProviderConfig" API object.
+func NewProviderConfig_Override(p ProviderConfig, scope constructs.Construct, id *string, props *ProviderConfigProps) {
 	_init_.Initialize()
 
 	_jsii_.Create(
-		"pkgcrossplaneio.Provider",
+		"awsupboundio.ProviderConfig",
 		[]interface{}{scope, id, props},
 		p,
 	)
@@ -158,16 +155,16 @@ func NewProvider_Override(p Provider, scope constructs.Construct, id *string, pr
 // Return whether the given object is an `ApiObject`.
 //
 // We do attribute detection since we can't reliably use 'instanceof'.
-func Provider_IsApiObject(o interface{}) *bool {
+func ProviderConfig_IsApiObject(o interface{}) *bool {
 	_init_.Initialize()
 
-	if err := validateProvider_IsApiObjectParameters(o); err != nil {
+	if err := validateProviderConfig_IsApiObjectParameters(o); err != nil {
 		panic(err)
 	}
 	var returns *bool
 
 	_jsii_.StaticInvoke(
-		"pkgcrossplaneio.Provider",
+		"awsupboundio.ProviderConfig",
 		"isApiObject",
 		[]interface{}{o},
 		&returns,
@@ -193,16 +190,16 @@ func Provider_IsApiObject(o interface{}) *bool {
 // this type-testing method instead.
 //
 // Returns: true if `x` is an object created from a class which extends `Construct`.
-func Provider_IsConstruct(x interface{}) *bool {
+func ProviderConfig_IsConstruct(x interface{}) *bool {
 	_init_.Initialize()
 
-	if err := validateProvider_IsConstructParameters(x); err != nil {
+	if err := validateProviderConfig_IsConstructParameters(x); err != nil {
 		panic(err)
 	}
 	var returns *bool
 
 	_jsii_.StaticInvoke(
-		"pkgcrossplaneio.Provider",
+		"awsupboundio.ProviderConfig",
 		"isConstruct",
 		[]interface{}{x},
 		&returns,
@@ -211,19 +208,19 @@ func Provider_IsConstruct(x interface{}) *bool {
 	return returns
 }
 
-// Renders a Kubernetes manifest for "Provider".
+// Renders a Kubernetes manifest for "ProviderConfig".
 //
 // This can be used to inline resource manifests inside other objects (e.g. as templates).
-func Provider_Manifest(props *ProviderProps) interface{} {
+func ProviderConfig_Manifest(props *ProviderConfigProps) interface{} {
 	_init_.Initialize()
 
-	if err := validateProvider_ManifestParameters(props); err != nil {
+	if err := validateProviderConfig_ManifestParameters(props); err != nil {
 		panic(err)
 	}
 	var returns interface{}
 
 	_jsii_.StaticInvoke(
-		"pkgcrossplaneio.Provider",
+		"awsupboundio.ProviderConfig",
 		"manifest",
 		[]interface{}{props},
 		&returns,
@@ -237,16 +234,16 @@ func Provider_Manifest(props *ProviderProps) interface{} {
 // If `c` is an `ApiObject`, it is returned directly. Throws an
 // exception if the construct does not have a child named `Default` _or_ if
 // this child is not an `ApiObject`.
-func Provider_Of(c constructs.IConstruct) cdk8s.ApiObject {
+func ProviderConfig_Of(c constructs.IConstruct) cdk8s.ApiObject {
 	_init_.Initialize()
 
-	if err := validateProvider_OfParameters(c); err != nil {
+	if err := validateProviderConfig_OfParameters(c); err != nil {
 		panic(err)
 	}
 	var returns cdk8s.ApiObject
 
 	_jsii_.StaticInvoke(
-		"pkgcrossplaneio.Provider",
+		"awsupboundio.ProviderConfig",
 		"of",
 		[]interface{}{c},
 		&returns,
@@ -255,18 +252,18 @@ func Provider_Of(c constructs.IConstruct) cdk8s.ApiObject {
 	return returns
 }
 
-func Provider_GVK() *cdk8s.GroupVersionKind {
+func ProviderConfig_GVK() *cdk8s.GroupVersionKind {
 	_init_.Initialize()
 	var returns *cdk8s.GroupVersionKind
 	_jsii_.StaticGet(
-		"pkgcrossplaneio.Provider",
+		"awsupboundio.ProviderConfig",
 		"GVK",
 		&returns,
 	)
 	return returns
 }
 
-func (p *jsiiProxy_Provider) AddDependency(dependencies ...constructs.IConstruct) {
+func (p *jsiiProxy_ProviderConfig) AddDependency(dependencies ...constructs.IConstruct) {
 	args := []interface{}{}
 	for _, a := range dependencies {
 		args = append(args, a)
@@ -279,7 +276,7 @@ func (p *jsiiProxy_Provider) AddDependency(dependencies ...constructs.IConstruct
 	)
 }
 
-func (p *jsiiProxy_Provider) AddJsonPatch(ops ...cdk8s.JsonPatch) {
+func (p *jsiiProxy_ProviderConfig) AddJsonPatch(ops ...cdk8s.JsonPatch) {
 	args := []interface{}{}
 	for _, a := range ops {
 		args = append(args, a)
@@ -292,7 +289,7 @@ func (p *jsiiProxy_Provider) AddJsonPatch(ops ...cdk8s.JsonPatch) {
 	)
 }
 
-func (p *jsiiProxy_Provider) ToJson() interface{} {
+func (p *jsiiProxy_ProviderConfig) ToJson() interface{} {
 	var returns interface{}
 
 	_jsii_.Invoke(
@@ -305,7 +302,7 @@ func (p *jsiiProxy_Provider) ToJson() interface{} {
 	return returns
 }
 
-func (p *jsiiProxy_Provider) ToString() *string {
+func (p *jsiiProxy_ProviderConfig) ToString() *string {
 	var returns *string
 
 	_jsii_.Invoke(

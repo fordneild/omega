@@ -15,6 +15,7 @@ var wellKnownCRDs = []string{
 	"applications.argoproj.io",
 	"appprojects.argoproj.io",
 	"providers.pkg.crossplane.io",
+	"providerconfigs.aws.upbound.io",
 }
 
 type ImportResourceDefinitionsCmd struct {

@@ -46,4 +46,8 @@ func init() {
 		"pkgcrossplaneio.ProviderSpecPackagePullSecrets",
 		reflect.TypeOf((*ProviderSpecPackagePullSecrets)(nil)).Elem(),
 	)
+	_jsii_.RegisterStruct(
+		"pkgcrossplaneio.ProviderSpecRuntimeConfigRef",
+		reflect.TypeOf((*ProviderSpecRuntimeConfigRef)(nil)).Elem(),
+	)
 }
