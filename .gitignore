@@ -7,3 +7,6 @@ devbox.lock
 # we manage go dependencies in this directory, not at the typical GOPATH location
 go/
 
+# to create crossplane aws secret
+aws-credentials.txt
+

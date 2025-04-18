@@ -1,11 +1,16 @@
 package infra
 
+// Argocd requires small tweaks to make crossplane behave better
+
+// see https://docs.crossplane.io/latest/guides/crossplane-with-argo-cd/
 const crossplaneArgocdResoureExclusions = `
       - apiGroups:
         - "*"
         kinds:
         - ProviderConfigUsage
 `
+
+// see https://docs.crossplane.io/latest/guides/crossplane-with-argo-cd/
 const crossplaneArgocdResourceCustomizations = `
     "*.upbound.io/*":
       health.lua: |

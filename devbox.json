@@ -4,6 +4,7 @@
     "go@1.23",
     "jq@latest",
     "kubectl@latest",
+    "k9s@latest",
   ],
   "env_from": ".env",
   "env": {
