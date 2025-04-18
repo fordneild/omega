@@ -1,2 +1,6 @@
 kubeconfig.json
 .env
+
+# we manage go dependencies in this directory, not at the typical GOPATH location
+go/
+
