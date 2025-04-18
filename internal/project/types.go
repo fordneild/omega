@@ -1,6 +1,7 @@
 package project
 
 import (
+	"github.com/aws/jsii-runtime-go"
 	"github.com/cdk8s-team/cdk8s-core-go/cdk8s/v2"
 	"github.com/charmbracelet/log"
 )
@@ -8,6 +9,7 @@ import (
 type Project interface {
 	Synth() error
 	GetId() string
+	GetSubId(postfix string) *string
 	GetName() string
 	GetPath() string
 	// Repo URL
@@ -50,6 +52,10 @@ func (p *project) GetApps() []cdk8s.App {
 
 func (p *project) GetId() string {
 	return p.id
+}
+
+func (p *project) GetSubId(suffix string) *string {
+	return jsii.Sprintf("%s-%s", p.GetId(), suffix)
 }
 
 func (p *project) GetName() string {

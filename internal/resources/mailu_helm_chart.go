@@ -6,10 +6,10 @@ import (
 	"github.com/fordneild/omega/internal/project"
 )
 
-func NewFlyteHelmChart(project project.Project) cdk8s.App {
+func NewMailuHelmChart(project project.Project) cdk8s.App {
 	app := cdk8s.NewApp(nil)
 	chart := cdk8s.NewChart(app, jsii.Sprintf("%s-flyte-chart", project.GetId()), nil)
-	NewHelmChartAsArgocdApp(chart, jsii.Sprintf("%s-flyte-system", project.GetId()), ArgocdHelmChartProps{
+	NewHelmChartAsArgocdApp(chart, jsii.Sprintf("%s-flyte-helm-chart", project.GetId()), ArgocdHelmChartProps{
 		Name:                   jsii.String("flyte-helm-chart"),
 		ArgocdNamespace:        jsii.String("argocd"),
 		ReleaseNamespace:       jsii.String("flyte"),

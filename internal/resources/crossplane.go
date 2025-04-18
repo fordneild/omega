@@ -1,18 +1,17 @@
 package resources
 
 import (
-	"fmt"
-
 	"github.com/aws/jsii-runtime-go"
 	"github.com/cdk8s-team/cdk8s-core-go/cdk8s/v2"
+	crossplane "github.com/fordneild/omega/imports/pkgcrossplaneio"
 	"github.com/fordneild/omega/internal/project"
 )
 
 func NewAWSCrossplane(project project.Project) cdk8s.App {
 	app := cdk8s.NewApp(nil)
-	chart := cdk8s.NewChart(app, jsii.String(fmt.Sprintf("%s-crossplane-system-helm-chart", project.GetId())), nil)
+	crossplaneAwsChart := cdk8s.NewChart(app, project.GetSubId("chart"), nil)
 	// crossplane helm chart
-	NewHelmChartAsArgocdApp(chart, project.GetId(), ArgocdHelmChartProps{
+	NewHelmChartAsArgocdApp(crossplaneAwsChart, project.GetSubId("crossplane-system-helm-chart"), ArgocdHelmChartProps{
 		Name:                   jsii.String("crossplane-system-helm-chart"),
 		ArgocdNamespace:        jsii.String("argocd"),
 		ReleaseNamespace:       jsii.String("crossplane-system"),
@@ -25,6 +24,14 @@ func NewAWSCrossplane(project project.Project) cdk8s.App {
 		DisableCreateNamespace: jsii.Bool(false),
 		PruneOnAutomatedSync:   jsii.Bool(true),
 	})
-	// TODO set up AWS provider
+	// Set up AWS EKS provider
+	crossplane.NewProvider(crossplaneAwsChart, project.GetSubId("provider-aws"), &crossplane.ProviderProps{
+		Metadata: &cdk8s.ApiObjectMetadata{
+			Name: jsii.String("provider-aws"),
+		},
+		Spec: &crossplane.ProviderSpec{
+			Package: jsii.String("xpkg.crossplane.io/crossplane-contrib/provider-aws-eks:v1.21.1"),
+		},
+	})
 	return app
 }

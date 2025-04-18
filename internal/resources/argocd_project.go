@@ -26,10 +26,10 @@ type ChildAppConfig struct {
 }
 
 func NewProjectArgocdResources(scope constructs.Construct, id string, props ProjectProps) constructs.Construct {
-	project := constructs.NewConstruct(scope, &id)
+	construct := constructs.NewConstruct(scope, &id)
 
 	// 1. Create the ArgoCD Project CRD
-	argoprojio.NewAppProject(project, jsii.String(id), &argoprojio.AppProjectProps{
+	argoprojio.NewAppProject(construct, jsii.String(id), &argoprojio.AppProjectProps{
 		Metadata: &cdk8s.ApiObjectMetadata{
 			Name:      jsii.String(props.ProjectName),
 			Namespace: jsii.String("argocd"),
@@ -53,7 +53,7 @@ func NewProjectArgocdResources(scope constructs.Construct, id string, props Proj
 	})
 
 	// 2. Create the Project Root Application
-	argoprojio.NewApplication(project, jsii.String(id+"-root"), &argoprojio.ApplicationProps{
+	argoprojio.NewApplication(construct, jsii.String(id+"-root"), &argoprojio.ApplicationProps{
 		Metadata: &cdk8s.ApiObjectMetadata{
 			Namespace: jsii.String("argocd"),
 			Name:      jsii.String(props.ProjectName + "-root"),
@@ -95,5 +95,5 @@ func NewProjectArgocdResources(scope constructs.Construct, id string, props Proj
 	// 	})
 	// }
 
-	return project
+	return construct
 }
