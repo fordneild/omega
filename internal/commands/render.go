@@ -11,11 +11,11 @@ import (
 	"github.com/fordneild/omega/internal/shell"
 )
 
-type SyncCmd struct {
+type RenderCmd struct {
 	ProjectsIds *[]string `name:"project-ids" help:"Projects to sync"`
 }
 
-func (cmd *SyncCmd) Run(globals *globals.Globals) error {
+func (cmd *RenderCmd) Run(globals *globals.Globals) error {
 	projectIds := cmd.ProjectsIds
 	projects := globals.ProjectService.GetAllProjects()
 	for _, project := range projects {
@@ -36,7 +36,7 @@ func SyncProject(globals *globals.Globals, project project.Project) error {
 		flags = append(flags, "-d")
 	}
 	omegaSyncCommand := fmt.Sprintf("omega synth %s %s", project.GetId(), strings.Join(flags, " "))
-	log.Infof("Syncing project %s", project.GetId())
+	log.Infof("Rendering project %s", project.GetId())
 	shellCmd := fmt.Sprintf("cdk8s synth --output=\"%s\" --app=\"%s\"", project.GetPath(), omegaSyncCommand)
 	log.Debugf("Running command: %s", shellCmd)
 	stdout, stderr, err := shell.Exec(shellCmd)

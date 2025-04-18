@@ -8,8 +8,10 @@ type AllCommands struct {
 
 type Cdk8sCommands struct {
 	Import ImportResourceDefinitionsCmd `cmd:"" name:"import" help:"Imports K8s resource definitions from a cluster/url"`
-	Synth  SynthCmd                     `cmd:"" name:"synth" help:"Creates K8s Manifests"`
-	Sync   SyncCmd                      `cmd:"" name:"sync" help:"Syncs K8s Manifests"`
+	Render RenderCmd                    `cmd:"" name:"render" aliases:"r" help:"Renders K8s Manifests"`
+
+	// used internally by the CLI to render the manifests
+	Synth SynthCmd `cmd:"" name:"synth" help:"Creates K8s Manifests" hidden:"true"`
 }
 
 type PulumiCommands struct {

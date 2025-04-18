@@ -8,8 +8,8 @@ import (
 
 func NewFlyteHelmChart(project project.Project) cdk8s.App {
 	app := cdk8s.NewApp(nil)
-	chart := cdk8s.NewChart(app, jsii.Sprintf("%s-flyte-chart", project.GetId()), nil)
-	NewHelmChartAsArgocdApp(chart, jsii.Sprintf("%s-flyte-system", project.GetId()), ArgocdHelmChartProps{
+	chart := cdk8s.NewChart(app, project.GetSubId("chart"), nil)
+	NewHelmChartAsArgocdApp(chart, project.GetSubId("helm-chart"), ArgocdHelmChartProps{
 		Name:                   jsii.String("flyte-helm-chart"),
 		ArgocdNamespace:        jsii.String("argocd"),
 		ReleaseNamespace:       jsii.String("flyte"),
