@@ -7,7 +7,7 @@ import (
 const NeildId = "neild"
 
 func neild() project.Project {
-	project := project.OmegaProject(NeildId, "neild")
+	project := project.OmegaProject(NeildId, "neild", nil)
 	return project
 }
 

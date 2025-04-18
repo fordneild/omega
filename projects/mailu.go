@@ -7,7 +7,7 @@ import (
 const MailuId = "mailu"
 
 func mailu() project.Project {
-	project := project.OmegaProject(MailuId, "mailu")
+	project := project.OmegaProject(MailuId, "mailu", nil)
 	return project
 }
 

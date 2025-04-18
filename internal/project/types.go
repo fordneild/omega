@@ -16,20 +16,22 @@ type Project interface {
 	GetRepo() string
 	WithApp(app cdk8s.App)
 	GetApps() []cdk8s.App
+	GetTargetRevision() *string
 }
 
 type project struct {
-	id   string
-	name string
-	path string
-	repo string
-	apps []cdk8s.App
+	id             string
+	name           string
+	path           string
+	repo           string
+	apps           []cdk8s.App
+	targetRevision *string
 }
 
 var _ Project = &project{}
 
-func NewProject(id, name, path, repo string) Project {
-	proj := &project{id: id, name: name, path: path, repo: repo, apps: []cdk8s.App{}}
+func NewProject(id, name, path, repo string, targetRevision *string) Project {
+	proj := &project{id: id, name: name, path: path, repo: repo, apps: []cdk8s.App{}, targetRevision: targetRevision}
 	return proj
 }
 
@@ -68,4 +70,8 @@ func (p *project) GetPath() string {
 
 func (p *project) GetRepo() string {
 	return p.repo
+}
+
+func (p *project) GetTargetRevision() *string {
+	return p.targetRevision
 }

@@ -16,6 +16,8 @@ type ProjectProps struct {
 	Path string
 	// List of child application configurations
 	ChildApps []ChildAppConfig
+	// Target revision for the application
+	TargetRevision *string
 }
 
 type ChildAppConfig struct {
@@ -61,8 +63,9 @@ func NewProjectArgocdResources(scope constructs.Construct, id string, props Proj
 		Spec: &argoprojio.ApplicationSpec{
 			Project: jsii.String(props.ProjectName),
 			Source: &argoprojio.ApplicationSpecSource{
-				RepoUrl: jsii.String(props.RepoUrl),
-				Path:    jsii.String(props.Path),
+				RepoUrl:        jsii.String(props.RepoUrl),
+				Path:           jsii.String(props.Path),
+				TargetRevision: props.TargetRevision,
 			},
 			Destination: &argoprojio.ApplicationSpecDestination{
 				Server: jsii.String("https://kubernetes.default.svc"),

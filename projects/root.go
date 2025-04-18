@@ -6,7 +6,7 @@ import (
 )
 
 func root() project.Project {
-	rootProj := project.OmegaProject("root", "root")
+	rootProj := project.OmegaProject("root", "root", nil)
 	for _, project := range AllProjects {
 		app := resources.NewProjectRoot(project)
 		rootProj.WithApp(app)
