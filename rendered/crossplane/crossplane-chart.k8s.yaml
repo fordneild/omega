@@ -26,3 +26,15 @@ metadata:
   name: provider-aws
 spec:
   package: xpkg.crossplane.io/crossplane-contrib/provider-aws-eks:v1.21.1
+---
+apiVersion: aws.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: provider-config-aws
+spec:
+  credentials:
+    secretRef:
+      key: creds
+      name: aws-secret
+      namespace: crossplane-system
+    source: Secret
