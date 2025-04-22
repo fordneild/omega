@@ -8,7 +8,7 @@ import (
 const FlyteId = "flyte"
 
 func flyte() project.Project {
-	project := project.OmegaProject(FlyteId, "flyte")
+	project := project.OmegaProject(FlyteId, "flyte", nil)
 	project.WithApp(resources.NewFlyteHelmChart(project))
 	return project
 }

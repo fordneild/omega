@@ -16,6 +16,8 @@ type ProjectProps struct {
 	Path string
 	// List of child application configurations
 	ChildApps []ChildAppConfig
+	// Target revision for the application
+	TargetRevision *string
 }
 
 type ChildAppConfig struct {
@@ -26,10 +28,10 @@ type ChildAppConfig struct {
 }
 
 func NewProjectArgocdResources(scope constructs.Construct, id string, props ProjectProps) constructs.Construct {
-	project := constructs.NewConstruct(scope, &id)
+	construct := constructs.NewConstruct(scope, &id)
 
 	// 1. Create the ArgoCD Project CRD
-	argoprojio.NewAppProject(project, jsii.String(id), &argoprojio.AppProjectProps{
+	argoprojio.NewAppProject(construct, jsii.String(id), &argoprojio.AppProjectProps{
 		Metadata: &cdk8s.ApiObjectMetadata{
 			Name:      jsii.String(props.ProjectName),
 			Namespace: jsii.String("argocd"),
@@ -53,7 +55,7 @@ func NewProjectArgocdResources(scope constructs.Construct, id string, props Proj
 	})
 
 	// 2. Create the Project Root Application
-	argoprojio.NewApplication(project, jsii.String(id+"-root"), &argoprojio.ApplicationProps{
+	argoprojio.NewApplication(construct, jsii.String(id+"-root"), &argoprojio.ApplicationProps{
 		Metadata: &cdk8s.ApiObjectMetadata{
 			Namespace: jsii.String("argocd"),
 			Name:      jsii.String(props.ProjectName + "-root"),
@@ -61,8 +63,9 @@ func NewProjectArgocdResources(scope constructs.Construct, id string, props Proj
 		Spec: &argoprojio.ApplicationSpec{
 			Project: jsii.String(props.ProjectName),
 			Source: &argoprojio.ApplicationSpecSource{
-				RepoUrl: jsii.String(props.RepoUrl),
-				Path:    jsii.String(props.Path),
+				RepoUrl:        jsii.String(props.RepoUrl),
+				Path:           jsii.String(props.Path),
+				TargetRevision: props.TargetRevision,
 			},
 			Destination: &argoprojio.ApplicationSpecDestination{
 				Server: jsii.String("https://kubernetes.default.svc"),
@@ -95,5 +98,5 @@ func NewProjectArgocdResources(scope constructs.Construct, id string, props Proj
 	// 	})
 	// }
 
-	return project
+	return construct
 }

@@ -23,8 +23,8 @@ type ArgocdHelmChartProps struct {
 }
 
 // a helm chart, installed as a argocd app. Has the advantage of params being modifyable via the argocd UI
-func NewHelmChartAsArgocdApp(scope constructs.Construct, id string, props ArgocdHelmChartProps) constructs.Construct {
-	project := constructs.NewConstruct(scope, &id)
+func NewHelmChartAsArgocdApp(scope constructs.Construct, id *string, props ArgocdHelmChartProps) constructs.Construct {
+	construct := constructs.NewConstruct(scope, id)
 	argocdNamespace, _ := lo.Coalesce(props.ArgocdNamespace, jsii.String("argocd"))
 	var automatedSyncPolicy *argoprojio.ApplicationSpecSyncPolicyAutomated
 	if lo.FromPtr(props.DisableAutomatedSync) {
@@ -39,7 +39,7 @@ func NewHelmChartAsArgocdApp(scope constructs.Construct, id string, props Argocd
 		syncOptions = &[]*string{}
 	}
 
-	argoprojio.NewApplication(project, jsii.String(id), &argoprojio.ApplicationProps{
+	argoprojio.NewApplication(construct, jsii.Sprintf("%s-argocd-application", *id), &argoprojio.ApplicationProps{
 		Metadata: &cdk8s.ApiObjectMetadata{
 			Name:      props.Name,
 			Namespace: argocdNamespace,
@@ -66,5 +66,5 @@ func NewHelmChartAsArgocdApp(scope constructs.Construct, id string, props Argocd
 		},
 	})
 
-	return project
+	return construct
 }

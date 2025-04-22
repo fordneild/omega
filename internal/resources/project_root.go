@@ -12,9 +12,10 @@ func NewProjectRoot(project project.Project) cdk8s.App {
 	app := cdk8s.NewApp(nil)
 	chart := cdk8s.NewChart(app, jsii.String(fmt.Sprintf("%s-project", project.GetId())), nil)
 	NewProjectArgocdResources(chart, project.GetId(), ProjectProps{
-		ProjectName: project.GetName(),
-		RepoUrl:     project.GetRepo(),
-		Path:        project.GetPath(),
+		ProjectName:    project.GetName(),
+		RepoUrl:        project.GetRepo(),
+		Path:           project.GetPath(),
+		TargetRevision: project.GetTargetRevision(),
 	})
 
 	return app

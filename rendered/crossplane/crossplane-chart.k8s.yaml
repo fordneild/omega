@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crossplane-system-helm-chart
+  namespace: argocd
+spec:
+  destination:
+    namespace: crossplane-system
+    server: https://kubernetes.default.svc
+  project: crossplane
+  source:
+    chart: crossplane
+    helm:
+      releaseName: crossplane-system
+    repoURL: https://charts.crossplane.io/stable
+    targetRevision: 1.19.1
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-aws
+spec:
+  package: xpkg.crossplane.io/crossplane-contrib/provider-aws-eks:v1.21.1
+---
+apiVersion: aws.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: provider-config-aws
+spec:
+  credentials:
+    secretRef:
+      key: creds
+      name: aws-secret
+      namespace: crossplane-system
+    source: Secret

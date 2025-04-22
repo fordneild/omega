@@ -1,15 +1,20 @@
 {
-  "$schema":  "https://raw.githubusercontent.com/jetify-com/devbox/0.13.7/.schema/devbox.schema.json",
-  "packages": ["go@1.23"],
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.7/.schema/devbox.schema.json",
+  "packages": [
+    "go@1.23",
+    "jq@latest",
+    "kubectl@latest",
+    "k9s@latest",
+  ],
   "env_from": ".env",
   "env": {
     "KUBECONFIG":                                 "kubeconfig.json",
     "JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION": "1",
+    "GOPATH":                                     "$PWD/go",
+    "PATH":                                       "$PATH:$PWD/go/bin",
   },
   "shell": {
     "init_hook": [
-      // Remove Go environment variables that might've been inherited from the
-      // user's environment and could affect the build.
       "test -z $FISH_VERSION && \\",
       "unset       CGO_ENABLED GO111MODULE GOARCH GOFLAGS GOMOD GOOS GOROOT GOTOOLCHAIN GOWORK || \\",
       "set --erase CGO_ENABLED GO111MODULE GOARCH GOFLAGS GOMOD GOOS GOROOT GOTOOLCHAIN GOWORK",
@@ -20,6 +25,12 @@
       ],
       "install": [
         "go install ./cmd/omega",
+      ],
+      "argocd-password": [
+        "kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d; echo",
+      ],
+      "argocd-forward": [
+        "kubectl port-forward svc/argocd-server -n argocd 8080:443",
       ],
     },
   },

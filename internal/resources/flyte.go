@@ -1,8 +1,6 @@
 package resources
 
 import (
-	"fmt"
-
 	"github.com/aws/jsii-runtime-go"
 	"github.com/cdk8s-team/cdk8s-core-go/cdk8s/v2"
 	"github.com/fordneild/omega/internal/project"
@@ -10,8 +8,8 @@ import (
 
 func NewFlyteHelmChart(project project.Project) cdk8s.App {
 	app := cdk8s.NewApp(nil)
-	chart := cdk8s.NewChart(app, jsii.String(fmt.Sprintf("%s-flyte-helm-chart", project.GetId())), nil)
-	NewHelmChartAsArgocdApp(chart, project.GetId(), ArgocdHelmChartProps{
+	chart := cdk8s.NewChart(app, project.GetSubId("chart"), nil)
+	NewHelmChartAsArgocdApp(chart, project.GetSubId("helm-chart"), ArgocdHelmChartProps{
 		Name:                   jsii.String("flyte-helm-chart"),
 		ArgocdNamespace:        jsii.String("argocd"),
 		ReleaseNamespace:       jsii.String("flyte"),
